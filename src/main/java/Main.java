@@ -1,4 +1,6 @@
 import Controller.SocialMediaController;
+import DAO.AccountDAO;
+import Model.Account;
 import io.javalin.Javalin;
 
 /**
@@ -12,6 +14,18 @@ public class Main {
         app.start(8080);
 
         // testing code below
-        System.out.println("Testing");
+        Account testAccount = new Account("Ceasar", "Pass");
+        AccountDAO testDAO = new AccountDAO();
+        Account createdAccount = testDAO.createAccount(testAccount);
+        if (createdAccount == null) {
+            System.out.println("Account could not be created in database.");
+        }
+        else {
+            System.out.println("Account created successfully");
+            System.out.println(createdAccount.getAccount_id());
+            System.out.println(createdAccount.getUsername());
+            System.out.println(createdAccount.getPassword());
+        }
+        
     }
 }
