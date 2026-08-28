@@ -10,5 +10,8 @@ public class Main {
         SocialMediaController controller = new SocialMediaController();
         Javalin app = controller.startAPI();
         app.start(8080);
+
+        // testing code below
+        System.out.println("Testing");
     }
 }
