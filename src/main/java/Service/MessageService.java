@@ -48,7 +48,7 @@ public class MessageService {
   if (oldMessage == null || !isMessageTextValid(messageText)){
     return null;
   }
-  updateMessageTextById(messageId, messageText);
+  messageDAO.updateMessageById(messageId, messageText);
   Message updatedMessage = retrieveMessageById(messageId);
   return updatedMessage;
  }
