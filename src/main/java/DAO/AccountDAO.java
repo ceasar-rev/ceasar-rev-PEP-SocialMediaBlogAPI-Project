@@ -12,7 +12,6 @@ public class AccountDAO {
       String sql = "INSERT INTO account (username, password) VALUES (?, ?)" ;
       PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
       
-      //write preparedStatement's setString method here.
       preparedStatement.setString(1, account.getUsername());
       preparedStatement.setString(2, account.getPassword());
             
@@ -33,6 +32,7 @@ public class AccountDAO {
     try{
       String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
       preparedStatement.setString(1, account.getUsername());
       preparedStatement.setString(2, account.getPassword());
       
@@ -54,6 +54,7 @@ public class AccountDAO {
     try{
       String sql = "SELECT * FROM account WHERE username = ?";
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      
       preparedStatement.setString(1, username);
 
       ResultSet rs = preparedStatement.executeQuery();
