@@ -93,7 +93,8 @@ public class SocialMediaController {
 
     private void patchMessageTextByIdHandler(Context context){
         int messageId = Integer.parseInt(context.pathParam("message_id"));
-        String messageText = context.attribute("message_text");
+        Message newText = context.bodyAsClass(Message.class);
+        String messageText = newText.getMessage_text();
         System.out.println("Message Id " + messageId);
         System.out.println("Message Text " + messageText);
         Message message = messageService.updateMessageTextById(messageId, messageText);
