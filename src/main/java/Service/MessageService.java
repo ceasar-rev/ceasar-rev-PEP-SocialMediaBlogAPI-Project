@@ -44,17 +44,13 @@ public class MessageService {
  }
 
  public Message updateMessageTextById(int messageId, String messageText){
-  if(isMessageTextValid(messageText)){
-    if(messageDAO.updateMessageById(messageId, messageText)){
-      return retrieveMessageById(messageId);
-    }
+  Message oldMessage = retrieveMessageById(messageId);
+  if (oldMessage == null || !isMessageTextValid(messageText)){
+    return null;
   }
-  return null;
-  // Message message = retrieveMessageById(messageId);
-  // if (message != null && isMessageTextValid(messageText)){
-  //   messageDAO.updateMessageById(messageId, messageText);
-  // }
-  // return message;
+  updateMessageTextById(messageId, messageText);
+  Message updatedMessage = retrieveMessageById(messageId);
+  return updatedMessage;
  }
 
  public boolean isMessageTextValid(String messageText){
