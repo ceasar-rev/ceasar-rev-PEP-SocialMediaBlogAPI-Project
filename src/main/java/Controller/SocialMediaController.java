@@ -77,7 +77,10 @@ public class SocialMediaController {
         int messageId = Integer.parseInt(context.pathParam("message_id"));
         Message message = messageService.retrieveMessageById(messageId);
         if(message == null){
-            context.status(200);
+            System.out.println("Message not found");
+        }
+        else {
+            System.out.println("Message found");
         }
         context.json(message);
     }
