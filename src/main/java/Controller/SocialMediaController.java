@@ -76,6 +76,9 @@ public class SocialMediaController {
     private void getMessageByIdHandler(Context context) throws JsonProcessingException{
         int messageId = Integer.parseInt(context.pathParam("message_id"));
         Message message = messageService.retrieveMessageById(messageId);
+        if(message == null){
+            context.status(200);
+        }
         context.json(message);
     }
 }
