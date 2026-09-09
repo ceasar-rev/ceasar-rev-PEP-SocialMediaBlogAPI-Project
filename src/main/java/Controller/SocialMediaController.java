@@ -93,7 +93,8 @@ public class SocialMediaController {
 
     private void updateMessageTextByIdHandler(Context context){
         int messageId = Integer.parseInt(context.pathParam("message_id"));
-        Message message = messageService.deleteMessageById(messageId);
+        String messageText = context.attribute("message_text");
+        Message message = messageService.updateMessageTextById(messageId, messageText);
         if(message != null){
             context.json(message);
         }
