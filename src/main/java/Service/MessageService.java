@@ -16,7 +16,7 @@ public class MessageService {
   // 1. Check if message_text is not blank
   // 2. Check if message_text is not over 255 characters
   // 3. Check if posted_by refers to an existing user
-  if(message.getMessage_text() == "" || message.getMessage_text().length() > 255){
+  if(!isMessageTextValid(message.getMessage_text())){
     // could throw exception here
     return null;
   }
@@ -41,5 +41,21 @@ public class MessageService {
     messageDAO.deleteMessageById(messageId);
   }
   return message;
+ }
+
+ public Message updateMessageTextById(int messageId, String messageText){
+  Message message = retrieveMessageById(messageId);
+  // STILL NEED TO CHECK IF NEW MESSAGE TEXT IS VALID!
+  if (message != null){
+    messageDAO.updateMessageById(messageId, messageText);
+  }
+  return message;
+ }
+
+ public boolean isMessageTextValid(String messageText){
+  if(messageText == "" || messageText.length() > 255){
+    return false;
+  }
+  return true;
  }
 }

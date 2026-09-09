@@ -88,12 +88,22 @@ public class MessageDAO {
     return false; 
   }
 
-  public Message updateMessageById(int messageId){
+  public boolean updateMessageById(int messageId, String messageText){
     Connection connection = ConnectionUtil.getConnection();
     try{
-      String sql = "UPDATE "
+      String sql = "UPDATE message SET message_text = ? WHERE message_id = ?";
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      
+      preparedStatement.setString(1, messageText);
+      preparedStatement.setInt(2, messageId);
+      int numEffected = preparedStatement.executeUpdate();
+      if (numEffected > 0){
+        return true;
+      }
+    }catch(SQLException e){
+      System.out.println(e.getMessage());
     }
-    return null;
+    return false;
   }
 
   public List<Message> getAllMessagesByUser(int accountId){
