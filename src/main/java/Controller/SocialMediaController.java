@@ -74,14 +74,12 @@ public class SocialMediaController {
     }
     
     private void getMessageByIdHandler(Context context) throws JsonProcessingException{
+        // FIX ME: Test case fails when attempting to get a message using a non-existent message_id
         int messageId = Integer.parseInt(context.pathParam("message_id"));
         Message message = messageService.retrieveMessageById(messageId);
-        if(message == null){
-            System.out.println("Message not found");
+        if(message != null){
+            context.json(message);
         }
-        else {
-            System.out.println("Message found");
-        }
-        context.json(message);
+        
     }
 }
