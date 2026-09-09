@@ -73,30 +73,44 @@ public class MessageDAO {
   }
 
   public Message deleteMessageById(int messageId){
-    Connection connection = ConnectionUtil.getConnection();
-    try{
-      String sqlSelect = "SELECT * FROM message WHERE message_id = ?";
-      PreparedStatement preparedStatementSelect = connection.prepareStatement(sqlSelect);
-
-      preparedStatementSelect.setInt(1, messageId);
-      
-      ResultSet rs = preparedStatementSelect.executeQuery();
-      if(rs.next()){
-        Message message = new Message(rs.getInt("message_id"),
-        rs.getInt("posted_by"),
-        rs.getString("message_text"),
-        rs.getLong("time_posted_epoch"));
-
-        String sqlDelete = "DELETE * FROM message WHERE message_id = ?";
-        PreparedStatement preparedStatementDelete = connection.prepareStatement(sqlDelete);
-        preparedStatementDelete.setInt(1, messageId);
-        preparedStatementDelete.executeUpdate();
+    Message message = getMessageById(messageId);
+    if(message != null){
+      Connection connection = ConnectionUtil.getConnection();
+      try{
+        String sql = "DELETE * FROM message WHERE message_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, messageId);
+        preparedStatement.executeUpdate();
         return message;
+      }catch(SQLException e){
+        System.out.println(e.getMessage());
       }
-    }catch(SQLException e){
-      System.out.println(e.getMessage());
     }
     return null;
+    // Connection connection = ConnectionUtil.getConnection();
+    // try{
+    //   String sqlSelect = "SELECT * FROM message WHERE message_id = ?";
+    //   PreparedStatement preparedStatementSelect = connection.prepareStatement(sqlSelect);
+
+    //   preparedStatementSelect.setInt(1, messageId);
+      
+    //   ResultSet rs = preparedStatementSelect.executeQuery();
+    //   if(rs.next()){
+    //     Message message = new Message(rs.getInt("message_id"),
+    //     rs.getInt("posted_by"),
+    //     rs.getString("message_text"),
+    //     rs.getLong("time_posted_epoch"));
+
+    //     String sqlDelete = "DELETE * FROM message WHERE message_id = ?";
+    //     PreparedStatement preparedStatementDelete = connection.prepareStatement(sqlDelete);
+    //     preparedStatementDelete.setInt(1, messageId);
+    //     preparedStatementDelete.executeUpdate();
+    //     return message;
+    //   }
+    // }catch(SQLException e){
+    //   System.out.println(e.getMessage());
+    // }
+    // return message;
   }
 
   public Message updateMessageById(int messageId){
