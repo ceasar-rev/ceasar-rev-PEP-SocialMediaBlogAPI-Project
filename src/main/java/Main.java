@@ -16,16 +16,16 @@ public class Main {
         // testing code below
         Account testAccount = new Account("Ceasar", "Pass");
         AccountDAO testDAO = new AccountDAO();
-        Account createdAccount = testDAO.createAccount(testAccount);
-        if (createdAccount == null) {
-            System.out.println("Account could not be created in database.");
-        }
-        else {
-            System.out.println("Account created successfully");
-            System.out.println(createdAccount.getAccount_id());
-            System.out.println(createdAccount.getUsername());
-            System.out.println(createdAccount.getPassword());
-        }
+        // Account createdAccount = testDAO.createAccount(testAccount);
+        // if (createdAccount == null) {
+        //     System.out.println("Account could not be created in database.");
+        // }
+        // else {
+        //     System.out.println("Account created successfully");
+        //     System.out.println(createdAccount.getAccount_id());
+        //     System.out.println(createdAccount.getUsername());
+        //     System.out.println(createdAccount.getPassword());
+        // }
         
     }
 }

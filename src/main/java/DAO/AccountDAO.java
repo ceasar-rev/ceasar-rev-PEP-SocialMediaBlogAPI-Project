@@ -6,7 +6,7 @@ import Model.Account;
 import Util.ConnectionUtil;
 
 public class AccountDAO {
-  public Account createAccount(Account account) {
+  public Account insertAccount(Account account) {
     Connection connection = ConnectionUtil.getConnection();
     try {
       String sql = "INSERT INTO account (username, password) VALUES (?, ?)" ;
@@ -48,5 +48,22 @@ public class AccountDAO {
     }
     
     return null;
+  }
+
+  public boolean doesUsernameExist(String username){
+    Connection connection = ConnectionUtil.getConnection();
+    try{
+      String sql = "SELECT * FROM account WHERE username = ?";
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setString(1, username);
+
+      ResultSet rs = preparedStatement.executeQuery();
+      if(rs.next()){
+        return true;
+      }
+    }catch(SQLException e){
+      System.out.println(e.getMessage());
+    }
+    return false;
   }
 }
