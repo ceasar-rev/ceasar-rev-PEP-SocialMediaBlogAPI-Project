@@ -28,6 +28,7 @@ public class SocialMediaController {
         app.post("/messages", this::postMessageHandler);
         app.get("/messages", this::getAllMessagesHandler);
         app.get("/messages/{message_id}", this::getMessageByIdHandler);
+        app.delete("/messages/{message_id}", this::deleteMessageByIdHandler);
 
         return app;
     }
@@ -73,13 +74,19 @@ public class SocialMediaController {
         context.json(messages);
     }
     
-    private void getMessageByIdHandler(Context context) throws JsonProcessingException{
-        // FIX ME: Test case fails when attempting to get a message using a non-existent message_id
+    private void getMessageByIdHandler(Context context){
         int messageId = Integer.parseInt(context.pathParam("message_id"));
         Message message = messageService.retrieveMessageById(messageId);
         if(message != null){
             context.json(message);
         }
-        
+    }
+
+    private void deleteMessageByIdHandler(Context context){
+        int messageId = Integer.parseInt(context.pathParam("message_id"));
+        Message message = messageService.deleteMessageById(messageId);
+        if(message != null){
+            context.json(message);
+        }
     }
 }
