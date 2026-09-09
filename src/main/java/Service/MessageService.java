@@ -13,15 +13,10 @@ public class MessageService {
  }
 
  public Message createMessage(Message message){
-  // 1. Check if message_text is not blank
-  // 2. Check if message_text is not over 255 characters
-  // 3. Check if posted_by refers to an existing user
   if(!isMessageTextValid(message.getMessage_text())){
-    // could throw exception here
     return null;
   }
   if(!messageDAO.doesPostedByIdExist(message.getPosted_by())){
-    // could throw exception here
     return null;
   }
   return messageDAO.insertMessage(message);
