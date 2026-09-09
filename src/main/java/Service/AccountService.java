@@ -25,7 +25,7 @@ public class AccountService {
     return accountDAO.insertAccount(account);
   }
 
-  public Account processLogin(String username, String password){
-    return null;
+  public Account processLogin(Account account){
+    return accountDAO.loginUser(account);
   }
 }
