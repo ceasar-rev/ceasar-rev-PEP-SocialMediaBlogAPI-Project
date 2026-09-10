@@ -96,8 +96,6 @@ public class SocialMediaController {
         int messageId = Integer.parseInt(context.pathParam("message_id"));
         Message newText = context.bodyAsClass(Message.class);
         String messageText = newText.getMessage_text();
-        System.out.println("Message Id " + messageId);
-        System.out.println("Message Text " + messageText);
         Message message = messageService.updateMessageTextById(messageId, messageText);
         if(message != null){
             context.json(message);
@@ -109,6 +107,7 @@ public class SocialMediaController {
 
     private void getAllMessagesByUserHandler(Context context){
         int accountId = Integer.parseInt(context.pathParam("account_id"));
+        System.out.println("Account Id = " + accountId);
         List<Message> messages = messageService.retrieveAllMessagesByUser(accountId);
         context.json(messages);
     }

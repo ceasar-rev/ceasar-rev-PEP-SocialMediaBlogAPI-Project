@@ -56,9 +56,6 @@ public class MessageService {
  }
 
  public List<Message> retrieveAllMessagesByUser(int accountId){
-  if(messageDAO.doesPostedByIdExist(accountId)){
-    return messageDAO.getAllMessagesByUser(accountId);
-  }
-  return null;
+  return messageDAO.getAllMessagesByUser(accountId);
  }
 }
