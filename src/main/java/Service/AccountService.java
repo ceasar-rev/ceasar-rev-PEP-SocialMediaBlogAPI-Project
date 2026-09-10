@@ -11,7 +11,7 @@ public class AccountService {
   }
 
   public Account createAccount(Account account){
-    if (!isUsernameValid(account.getUsername())){
+    if (account.getUsername() == "" || account.getPassword().length() < 4){
       return null;
     }
     else if(accountDAO.doesUsernameExist(account.getUsername())){
@@ -24,13 +24,5 @@ public class AccountService {
 
   public Account processLogin(Account account){
     return accountDAO.loginUser(account);
-  }
-
-  // Helper function below to make sure username satisfies valid constraints
-  public boolean isUsernameValid(String username){
-    if(username == "" || username.length() < 4){
-      return false;
-    }
-    return true;
   }
 }
