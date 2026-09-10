@@ -129,6 +129,7 @@ public class MessageDAO {
     return messages;
   }
 
+  // Helper function below to determine if account actually exists
   public boolean doesPostedByIdExist(int accountId){
     Connection connection = ConnectionUtil.getConnection();
     try{

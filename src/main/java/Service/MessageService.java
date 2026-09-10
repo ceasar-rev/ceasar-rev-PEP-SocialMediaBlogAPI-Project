@@ -6,56 +6,59 @@ import DAO.MessageDAO;
 import Model.Message;
 
 public class MessageService {
- private MessageDAO messageDAO;
+  private MessageDAO messageDAO;
  
- public MessageService(){
-  messageDAO = new MessageDAO();
- }
-
- public Message createMessage(Message message){
-  if(!isMessageTextValid(message.getMessage_text())){
-    return null;
+  public MessageService(){
+    messageDAO = new MessageDAO();
   }
-  if(!messageDAO.doesPostedByIdExist(message.getPosted_by())){
-    return null;
+
+  public Message createMessage(Message message){
+    if(!isMessageTextValid(message.getMessage_text())){
+      return null;
+    }
+    else if(!messageDAO.doesPostedByIdExist(message.getPosted_by())){
+      return null;
+    }
+    else {
+      return messageDAO.insertMessage(message);
+    }
   }
-  return messageDAO.insertMessage(message);
- }
 
- public List<Message> retrieveAllMessages(){
-  return messageDAO.getAllMessages();
- }
-
- public Message retrieveMessageById(int messageId){
-  return messageDAO.getMessageById(messageId);
- }
-
- public Message deleteMessageById(int messageId){
-  Message message = retrieveMessageById(messageId);
-  if (message != null){
-    messageDAO.deleteMessageById(messageId);
+  public List<Message> retrieveAllMessages(){
+    return messageDAO.getAllMessages();
   }
-  return message;
- }
 
- public Message updateMessageTextById(int messageId, String messageText){
-  Message oldMessage = retrieveMessageById(messageId);
-  if (oldMessage == null || !isMessageTextValid(messageText)){
-    return null;
+  public Message retrieveMessageById(int messageId){
+    return messageDAO.getMessageById(messageId);
   }
-  messageDAO.updateMessageById(messageId, messageText);
-  Message updatedMessage = retrieveMessageById(messageId);
-  return updatedMessage;
- }
 
- public boolean isMessageTextValid(String messageText){
-  if(messageText == "" || messageText.length() > 255){
-    return false;
+  public Message deleteMessageById(int messageId){
+    Message message = retrieveMessageById(messageId);
+    if (message != null){
+      messageDAO.deleteMessageById(messageId);
+    }
+    return message;
   }
-  return true;
- }
 
- public List<Message> retrieveAllMessagesByUser(int accountId){
-  return messageDAO.getAllMessagesByUser(accountId);
- }
+  public Message updateMessageTextById(int messageId, String messageText){
+    Message oldMessage = retrieveMessageById(messageId);
+    if (oldMessage == null || !isMessageTextValid(messageText)){
+      return null;
+    }
+    messageDAO.updateMessageById(messageId, messageText);
+    Message updatedMessage = retrieveMessageById(messageId);
+    return updatedMessage;
+  }
+
+  // Helper function below to determine if message_text satisfies valid constraints
+  public boolean isMessageTextValid(String messageText){
+    if(messageText == "" || messageText.length() > 255){
+      return false;
+    }
+    return true;
+  }
+
+  public List<Message> retrieveAllMessagesByUser(int accountId){
+    return messageDAO.getAllMessagesByUser(accountId);
+  }
 }
