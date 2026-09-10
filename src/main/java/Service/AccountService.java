@@ -11,21 +11,26 @@ public class AccountService {
   }
 
   public Account createAccount(Account account){
-    // 1. Check if username is not blank
-    // 2. Check if password is longer than 4 characters
-    // 3. Check if username already exists
-    if (account.getUsername() == "" || account.getPassword().length() < 4){
-      // could throw exception here
+    if (!isUsernameValid(account.getUsername())){
       return null;
     }
-    if (accountDAO.doesUsernameExist(account.getUsername())){
-      // could throw exception here
+    else if(accountDAO.doesUsernameExist(account.getUsername())){
       return null;
     }
-    return accountDAO.insertAccount(account);
+    else{
+      return accountDAO.insertAccount(account);
+    }
   }
 
   public Account processLogin(Account account){
     return accountDAO.loginUser(account);
+  }
+
+  // Helper function below to make sure username satisfies valid constraints
+  public boolean isUsernameValid(String username){
+    if(username == "" || username.length() < 4){
+      return false;
+    }
+    return true;
   }
 }

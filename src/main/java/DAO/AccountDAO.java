@@ -49,6 +49,7 @@ public class AccountDAO {
     return null;
   }
 
+  // Helper function below to determine if a username is already taken
   public boolean doesUsernameExist(String username){
     Connection connection = ConnectionUtil.getConnection();
     try{

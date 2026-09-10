@@ -107,7 +107,6 @@ public class SocialMediaController {
 
     private void getAllMessagesByUserHandler(Context context){
         int accountId = Integer.parseInt(context.pathParam("account_id"));
-        System.out.println("Account Id = " + accountId);
         List<Message> messages = messageService.retrieveAllMessagesByUser(accountId);
         context.json(messages);
     }
